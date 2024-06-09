@@ -14,18 +14,23 @@ async def main():
         print(flow_run.state)
         #print(flow_run_1.state)
 
+class test_object:
+    def __init__(self, name):
+        self.name = name
 
+    def run(self):
+        return f"Hello {self.name}!"
 
 #test flow run with actual parameters
 @flow(persist_result=True)
 def test_flow(name):
-    return f"Hello {name}!"
+    return test_object(name)
 
 @flow(log_prints=True)
 def run_deployment_test():
     parameter = {"name": "world"}
     flow_run = run_deployment(name="66dc6697-b030-453d-9418-d7a6e3b1a00d",as_subflow=True, parameters=parameter)
-    print(flow_run.state.result().get())
+    print(flow_run.state.result().run())
 
      
 #Note run_deployment is also a valid method to create a flow run. 
