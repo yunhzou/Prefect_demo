@@ -12,4 +12,4 @@ if __name__ == "__main__":
     # )
     source = "https://github.com/yunhzou/Prefect_demo.git"
     entrypoint = "create_flowrun.py:test_flow"
-    flow.from_source(source=source, entrypoint=entrypoint).deploy(name="test_flow_run1", work_pool_name="Test-WorkPool")
+    flow.from_source(source=source, entrypoint=entrypoint).deploy(name="test_flow_run", work_pool_name="Test_WorkPool")

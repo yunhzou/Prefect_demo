@@ -3,6 +3,9 @@ from prefect import get_client
 from prefect.flow_runs import wait_for_flow_run
 from prefect import flow, deploy
 from prefect.deployments import run_deployment
+from prefect.filesystems import S3
+from prefect_aws.s3 import S3Bucket
+
 
 @flow 
 async def main():
@@ -21,15 +24,18 @@ class test_object:
     def run(self):
         return f"Hello {self.name}!"
 
+
+#s3_bucket_block = S3Bucket.load("jackie-bucket")
+
 #test flow run with actual parameters
-@flow(persist_result=True)
+@flow(persist_result=True,result_storage=S3Bucket.load("jackie-bucket"))
 def test_flow(name):
     return test_object(name)
 
 @flow(log_prints=True)
 def run_deployment_test():
     parameter = {"name": "world"}
-    flow_run = run_deployment(name="66dc6697-b030-453d-9418-d7a6e3b1a00d",as_subflow=True, parameters=parameter)
+    flow_run = run_deployment(name="f3f46e0e-7f85-4d8f-a0f8-db07a2accbd4",as_subflow=True, parameters=parameter)
     print(flow_run.state.result().run())
 
      
