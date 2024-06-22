@@ -43,7 +43,7 @@ def test_flow(name):
 def run_deployment_test():
     parameter = {"name": "world"}
     flow_run = run_deployment(name="f3f46e0e-7f85-4d8f-a0f8-db07a2accbd4",as_subflow=True, parameters=parameter)
-    print(flow_run.state.result().run())
+    print(flow_run.state.result())
 #Note run_deployment is also a valid method to create a flow run. 
 if __name__ == "__main__":
     #asyncio.run(main())
