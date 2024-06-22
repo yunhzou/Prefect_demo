@@ -5,6 +5,7 @@ from prefect import flow, deploy
 from prefect.deployments import run_deployment
 from prefect.filesystems import S3
 from prefect_aws.s3 import S3Bucket
+from prefect_aws import AwsCredentials
 
 
 @flow 
@@ -26,9 +27,12 @@ class test_object:
 
 
 #s3_bucket_block = S3Bucket.load("jackie-bucket")
+aws_credentials = AwsCredentials.load("jackie-aws-credentials")
+s3bucket = S3(bucket_path="testbucketjackie/result_storage", credentials=aws_credentials)
+
 
 #test flow run with actual parameters
-@flow(persist_result=True,result_storage=S3Bucket.load("jackie-bucket"))
+@flow(persist_result=True,result_storage=s3bucket)
 def test_flow(name):
     return test_object(name)
 
@@ -37,8 +41,6 @@ def run_deployment_test():
     parameter = {"name": "world"}
     flow_run = run_deployment(name="f3f46e0e-7f85-4d8f-a0f8-db07a2accbd4",as_subflow=True, parameters=parameter)
     print(flow_run.state.result().run())
-
-     
 #Note run_deployment is also a valid method to create a flow run. 
 if __name__ == "__main__":
     #deploy
