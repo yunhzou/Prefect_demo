@@ -34,7 +34,10 @@ s3bucket = S3(bucket_path="testbucketjackie/result_storage", credentials=aws_cre
 #test flow run with actual parameters
 @flow(persist_result=True,result_storage=s3bucket)
 def test_flow(name):
-    return test_object(name)
+    #return test_object(name)
+    return f"Hello {name}!"
+
+
 
 @flow(log_prints=True)
 def run_deployment_test():
@@ -43,6 +46,6 @@ def run_deployment_test():
     print(flow_run.state.result().run())
 #Note run_deployment is also a valid method to create a flow run. 
 if __name__ == "__main__":
-    #deploy
     #asyncio.run(main())
     run_deployment_test()
+ 
