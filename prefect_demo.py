@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from prefect import flow
+from prefect.deployments import run_deployment
 
 
 @flow
@@ -34,7 +35,10 @@ def show_text_image(text):
     # Close the image window
     cv2.destroyAllWindows()
 
+@flow
+def demo(): 
+    run_deployment(name="show-text-image/show_text_image_xiangyuan",parameters={"text": "hello"}, as_subflow=True)
+    run_deployment(name="show-text-image/show_text_image_Jackie",parameters={"text": "world"}, as_subflow=True)
 
 if __name__ == "__main__":
-    # Example usage
-    show_text_image("Hello")
+    demo()
