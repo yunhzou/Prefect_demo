@@ -7,7 +7,7 @@ from prefect.deployments import run_deployment
 @flow
 def print_remote_control():
     # Emoji for remote control
-    emoji = "📺"
+    emoji = "??????"
     # Print the message with the emoji
     print(f"Remote Control {emoji}")
 
