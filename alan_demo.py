@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from prefect import flow
 from prefect.deployments import run_deployment
