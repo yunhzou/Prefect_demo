@@ -1,14 +1,19 @@
-from prefect import task, flow
+from prefect import task, flow,get_client
 from prefect.deployments import run_deployment
 from prefect.filesystems import S3
 from prefect_aws import AwsCredentials
+import tkinter as tk
+from tkinter import simpledialog
 
 
 @flow(persist_result=True, 
       result_storage=S3(bucket_path="testbucketjackie/result_storage", 
                         credentials=AwsCredentials.load("jackie-aws-credentials")))
 def input_number():
-    number = int(input("Enter a number: "))
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    number = simpledialog.askinteger("Input", "Enter a number:")
+    root.destroy()  # Destroy the main window after getting the input
     return number
 
 @flow(log_prints=True,)
@@ -23,8 +28,8 @@ def add_numbers():
     print(f"Sum: {sum}")
 
 if __name__ == "__main__":
-    # source = "https://github.com/yunhzou/Prefect_demo.git"
-    # entrypoint = "alan_demo_2.py:input_number"  
-    # flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_local", work_pool_name="Jackie Computer")
-    # flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_virtual", work_pool_name="Test_WorkPool")
+    #source = "https://github.com/yunhzou/Prefect_demo.git"
+    #entrypoint = "alan_demo_2.py:input_number"  
+    #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_local", work_pool_name="Jackie Computer")
+    #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_virtual", work_pool_name="Test_WorkPool")
     add_numbers()
