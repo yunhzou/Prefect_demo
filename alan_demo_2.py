@@ -4,6 +4,7 @@ from prefect.filesystems import S3
 from prefect_aws import AwsCredentials
 import tkinter as tk
 from tkinter import simpledialog
+import asyncio
 
 
 @flow(persist_result=True, 
@@ -27,9 +28,43 @@ def add_numbers():
     sum = num1 + num2
     print(f"Sum: {sum}")
 
+
+@flow(log_prints=True)
+async def add_numbers_async():
+    async def get_number(name):
+        deployment = await run_deployment(name=name, as_subflow=True)
+        num = await deployment.state.result().get()
+        return num
+
+    local_num_future = get_number("input-number/input_number_local")
+    virtual_num_future = get_number("input-number/input_number_virtual")
+    num1, num2 = await asyncio.gather(local_num_future, virtual_num_future)
+    print(f"Local number: {num1}")
+    print(f"Virtual number: {num2}")
+    sum = num1 + num2
+    print(f"Sum: {sum}")
+
 if __name__ == "__main__":
+    asyncio.run(add_numbers_async())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     #source = "https://github.com/yunhzou/Prefect_demo.git"
     #entrypoint = "alan_demo_2.py:input_number"  
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_local", work_pool_name="Jackie Computer")
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_virtual", work_pool_name="Test_WorkPool")
-    add_numbers()
+    #add_numbers()
