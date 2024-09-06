@@ -5,7 +5,7 @@ from prefect.deployments import run_deployment
 
 
 @flow
-def show_text_image(text):
+def show_text_image(text:str):
     # Create a white image
     width, height = 200, 100
     image = np.ones((height, width, 3), np.uint8) * 255
