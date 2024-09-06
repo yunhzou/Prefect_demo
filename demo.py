@@ -45,10 +45,10 @@ async def add_numbers_async():
     print(f"Sum: {sum}")
 
 if __name__ == "__main__":
-    asyncio.run(add_numbers_async())
+    #asyncio.run(add_numbers_async())
     #To Deploy run the code below
     #source = "https://github.com/yunhzou/Prefect_demo.git"
     #entrypoint = "demo.py:input_number"  
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_local", work_pool_name="Jackie Computer")
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_virtual", work_pool_name="Test_WorkPool")
-    #add_numbers()
+    add_numbers()
