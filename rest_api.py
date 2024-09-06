@@ -15,8 +15,8 @@ async def get_deployments():
 r = asyncio.run(get_deployments())
 
 for flow in r:
-    print(type(flow))
-    print(dict(flow))
-    #print(flow.name, flow.id, flow.description, flow.parameters)
+    #print(type(flow))
+    #print(dict(flow))
+    print(flow.name, flow.id, flow.description, flow.parameter_openapi_schema)
     #print(flow)
     print()

@@ -35,6 +35,11 @@ def show_text_image(text:str):
     # Close the image window
     cv2.destroyAllWindows()
 
+@flow 
+def add_numbers(num1: int, num2: int):
+    sum = num1 + num2
+    print(f"Sum: {sum}")
+
 @flow
 def demo(): 
     run_deployment(name="show-text-image/show_text_image_xiangyuan",parameters={"text": "hello"}, as_subflow=True)
