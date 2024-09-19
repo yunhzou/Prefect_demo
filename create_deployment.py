@@ -16,6 +16,6 @@ if __name__ == "__main__":
     # flow.from_source(source=source, entrypoint=entrypoint).deploy(name="test_flow_run", work_pool_name="Test_WorkPool")
 
     source = "https://github.com/yunhzou/Prefect_demo.git"
-    entrypoint = "prefect_demo.py:show_text_image"
+    entrypoint = "prefect_demo.py:add_numbers"
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="show_text_image_xiangyuan", work_pool_name="Test_WorkPool")
-    flow.from_source(source=source, entrypoint=entrypoint).deploy(name="show_text_image_Jackie", work_pool_name="Jackie Computer")
+    flow.from_source(source=source, entrypoint=entrypoint).deploy(name="add_numbers", work_pool_name="Jackie Computer")

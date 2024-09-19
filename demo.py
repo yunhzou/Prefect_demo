@@ -1,15 +1,15 @@
 from prefect import task, flow,get_client
 from prefect.deployments import run_deployment
-from prefect.filesystems import S3
+from prefect_aws.s3 import S3Bucket
+
+
 from prefect_aws import AwsCredentials
 import tkinter as tk
 from tkinter import simpledialog
 import asyncio
 
-
 @flow(persist_result=True, 
-      result_storage=S3(bucket_path="testbucketjackie/result_storage", 
-                        credentials=AwsCredentials.load("jackie-aws-credentials")))
+      result_storage=S3Bucket.load("s3"))
 def input_number():
     root = tk.Tk()
     root.withdraw()  # Hide the main window
@@ -44,11 +44,16 @@ async def add_numbers_async():
     sum = num1 + num2
     print(f"Sum: {sum}")
 
+
+def test():
+    deployment = run_deployment(name="addition/addition",parameters={"a": 2, "b": 3})
+    num = deployment.state.result()
+    return num
 if __name__ == "__main__":
-    #asyncio.run(add_numbers_async())
+    #asyncio.run(add_numbers_async())addition
     #To Deploy run the code below
     #source = "https://github.com/yunhzou/Prefect_demo.git"
     #entrypoint = "demo.py:input_number"  
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_local", work_pool_name="Jackie Computer")
     #flow.from_source(source=source, entrypoint=entrypoint).deploy(name="input_number_virtual", work_pool_name="Test_WorkPool")
-    add_numbers()
+    print(test())
